@@ -1,0 +1,26 @@
+		.login-header{
+			height: 10%;	
+		}
+		.login-box{
+			width: 35%;
+			display: none;
+			margin: auto;
+			position: relative;
+			top:15%;
+		}
+		.login-title{
+			text-align: center;
+		}
+		.login-btn{
+			text-align: center;
+			}
+		.login-body{
+			display: flex;
+		}
+		.login-avator{
+			padding-top: 1%;
+			flex: 1;
+		}
+		.login-info{
+			flex:2;
+		}

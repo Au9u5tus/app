@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC " -//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yuhao.dao.AdministrationDao">
+	<insert id="batchAdd" parameterType="java.util.List">
+				insert into 
+					administration 
+				values
+		<foreach collection="admins" item="admin" separator=",">
+					(#{admin.id},
+					#{admin.name},
+					#{admin.parentId},
+					#{admin.isSpecial})
+		</foreach>
+	</insert>
+	<select id="getAdmins" resultType="Administration" parameterType="Administration">
+		select 
+			id as id,
+			name as name,
+			parentId as parentId,
+			isSpecial as isSpecial,
+			simple as simple,
+			longitude as longitude,
+			latitude as latitude,
+			level as level,
+			sort as sort
+		from 
+			administration	
+		where status='1'
+		limit #{page},#{rows}
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+		select 
+			count(*)
+		from 
+			administration
+		where status='1'
+	</select>
+	
+	<select id="adminTree" resultType="AdminTree" parameterType="AdminTree">
+		select 
+			id as id,
+			name as text
+		from 
+			administration
+		where 
+			<if test="id!=null and id!=''">
+					parentId=#{id}
+			</if>
+			<if test="id==null or id==''">
+					parentId=-1
+			</if>
+			order by id
+	</select>
+	
+	<select id="isBottom" resultType="java.lang.Integer" parameterType="AdminTree">
+		select
+			count(*)
+		from 
+			administration
+		where 
+			parentId in (
+				select 
+					id as id
+				from 
+					administration
+				where 
+					<if test="id!=null and id!=''">
+						parentId=#{id}
+					</if>
+					<if test="id==null or id==''">
+						parentId=-1
+					</if>
+				)
+	</select>
+	
+	<update id="removeRows" parameterType="java.lang.String">
+		update 
+			administration
+		set 
+			status='0'
+		where id in
+			<foreach collection="ids" open="(" close=")" separator="," item="id">
+				#{id}
+			</foreach>
+	</update>
+	
+	<insert id="insert">
+		insert into administration values(#{id},#{name},#{parentId},#{isSpecial},#{status})
+	</insert>
+</mapper>

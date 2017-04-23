@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+.datagrid-row{
+	height: 35px;
+	font-family: '宋体';
+}
+.datagrid-cell{
+	font-size: 12px;
+	line-height:24px;
+
+}
+.datagrid-header .datagrid-cell span{
+	font-size: 16px;
+	font-weight: bold;
+}
+.datagrid-header-row{
+	height:30px;
+}
+.datagrid-toolbar{
+	height:42px;
+}
+#dataContainer .panel-header{
+	height:31px;
+
+}
+#dataContainer .panel-title{
+	font-size:24px;
+	line-height: 31px;
+	text-align: center;
+}
+
+.l-btn-large .l-btn-text{
+	font-size:18px
+}
